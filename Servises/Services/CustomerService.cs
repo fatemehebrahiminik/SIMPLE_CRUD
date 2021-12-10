@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Servises.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -65,6 +66,16 @@ namespace Servises.Services
             _crudDb.Remove(_mapper.Map<Customer>(Customer));
             await _crudDb.SaveChangesAsync();
             return true;
+        }
+        /// <summary>
+        /// false mean not exist email
+        /// true mean exit email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public bool CheckExitEmail(int? id, string email)
+        {
+            return _crudDb.Customers.Where(x => x.Email == email && x.Id != id).FirstOrDefault() == null ? false : true;
         }
         #endregion
     }

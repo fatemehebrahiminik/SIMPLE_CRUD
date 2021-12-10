@@ -7,24 +7,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.DBContext;
 using DataLayer.Entities;
+using Servises.Models;
+using Servises.Services;
 
 namespace CURD.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly DataLayer.DBContext.CRUD_DBContext _context;
+        private readonly CustomerService _customerService;
 
-        public IndexModel(DataLayer.DBContext.CRUD_DBContext context)
+        public IndexModel(CustomerService customerService)
         {
-            _context = context;
+            _customerService = customerService;
         }
 
-        public IList<Customer> Customer { get;set; }
+        public IList<CustomerModel> Customer { get;set; }
 
         public async Task OnGetAsync()
         {
-            Customer = await _context.Customers
-                .Include(c => c.Nation).ToListAsync();
+            Customer = await _customerService.GetAllCustomersAsync();
         }
     }
 }

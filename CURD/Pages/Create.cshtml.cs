@@ -39,8 +39,27 @@ namespace CURD.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            try
+            {
+                //check validate phone number
+                if (Customer.PhoneNumber.StartsWith('+'))
+                    throw new Exception("invalid phone number format");
+                var nation = await _nationService.GetNationsAsync(Customer.NationId);
+                var phoneNumberUtil = PhoneNumbers.PhoneNumberUtil.GetInstance();
+                var phoneNumber = phoneNumberUtil.Parse(Customer.PhoneNumber, nation.NationType);
+                if (!phoneNumberUtil.IsValidNumber(phoneNumber))
+                    throw new Exception("invalid phone number format");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Customer.PhoneNumber", ex.Message);
+            }
+            if (_customerService.CheckExitEmail(Customer.Id, Customer.Email))
+                ModelState.AddModelError("Customer.Email", "This Email inserted before");
             if (!ModelState.IsValid)
             {
+                var nations = await _nationService.GetAllNationsAsync();
+                ViewData["NationId"] = new SelectList(nations, "Id", "NationTypeDesc");
                 return Page();
             }
             if (Customer.Id.HasValue)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataLayer.DBContext;
+using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using Servises.Models;
 using System;
@@ -29,6 +30,14 @@ namespace Servises.Services
             var Nations = await _crudDb.Nations.ToListAsync();
             return _mapper.Map<List<NationModel>>(Nations);
         }
+         
+        #region Get Nation by Id
+        public async Task<NationModel> GetNationsAsync(int Id)
+        {
+            Nation Nation = await _crudDb.Nations.FirstOrDefaultAsync(c => c.Id.Equals(Id));
+            return _mapper.Map<NationModel>(Nation);
+        }
+        #endregion
         #endregion
 
     }

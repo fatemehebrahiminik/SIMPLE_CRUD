@@ -15,13 +15,16 @@ namespace Servises.Models
         [Display(Name = "Birth Date")]
         public DateTime DateOfBirth { get; set; }
         [Display(Name = "Phone Number")]
-        public ulong? PhoneNumber { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
         [Display(Name = "Nation")]
         public int NationId { set; get; } 
         [Required, DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        [Display(Name = "Bank Account Number")] 
+        [Display(Name = "Bank Account Number")]
+        [Required]
+        [RegularExpression("((\\d{4})-){3}\\d{4}", ErrorMessage = "correct format is 0000-0000-0000-0000.")]
         public string BankAccountNumber { set; get; }
     }
 }
