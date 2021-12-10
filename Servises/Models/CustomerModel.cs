@@ -16,7 +16,7 @@ namespace Servises.Models
         public DateTime DateOfBirth { get; set; }
         [Display(Name = "Phone Number")]
         [Required]
-        public string PhoneNumber { get; set; }
+        public long? PhoneNumber { get; set; }
         [Display(Name = "Nation")]
         public int NationId { set; get; } 
         [Required, DataType(DataType.EmailAddress)]

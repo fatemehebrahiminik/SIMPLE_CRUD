@@ -42,11 +42,15 @@ namespace CURD.Pages
             try
             {
                 //check validate phone number
-                if (Customer.PhoneNumber.StartsWith('+'))
-                    throw new Exception("invalid phone number format");
+               // if (Customer.PhoneNumber.StartsWith('0'))
+               //     Customer.PhoneNumber = Customer.PhoneNumber.Remove(0);
+              //  if (Customer.PhoneNumber.StartsWith('+'))
+              //      throw new Exception("invalid phone number format");
+              if(!Customer.PhoneNumber.HasValue)
+                    throw new Exception("phone number is requried");
                 var nation = await _nationService.GetNationsAsync(Customer.NationId);
                 var phoneNumberUtil = PhoneNumbers.PhoneNumberUtil.GetInstance();
-                var phoneNumber = phoneNumberUtil.Parse(Customer.PhoneNumber, nation.NationType);
+                var phoneNumber = phoneNumberUtil.Parse(Customer.PhoneNumber.ToString(), nation.NationType);
                 if (!phoneNumberUtil.IsValidNumber(phoneNumber))
                     throw new Exception("invalid phone number format");
             }
