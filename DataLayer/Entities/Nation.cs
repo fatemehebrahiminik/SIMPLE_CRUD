@@ -21,6 +21,12 @@ namespace DataLayer.Entities
         /// IR(+98)
         /// </summary>
         public string NationTypeDesc { set; get; }
+        /// <summary>
+        /// nation code
+        /// +98
+        /// +1
+        /// </summary>
+        public string NationCode { set; get; }
         public ICollection<Customer> Customers { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace DataLayer.Entities
         public ulong PhoneNumber { get; set; }
         public int NationId { set; get; }
         public Nation Nation { get; set; }
-        [DataType(DataType.EmailAddress)]
+        [Required, DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public string BankAccountNumber { set; get; }
     }

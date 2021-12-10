@@ -14,8 +14,8 @@ namespace DataLayer.DBContext
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
-            modelBuilder.ApplyConfiguration(new NationCofiguration());
+            new CustomerConfiguration().Configure(modelBuilder.Entity<Customer>());
+            new NationCofiguration().Configure(modelBuilder.Entity<Nation>()); 
 
         }
 
