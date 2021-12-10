@@ -34,35 +34,35 @@ namespace Servises.Services
         #endregion
 
         #region Insert Customer
-        public async Task<bool> InsertCustomerAsync(Customer Customer)
+        public async Task<bool> InsertCustomerAsync(CustomerModel Customer)
         {
-            await _crudDb.Customers.AddAsync(Customer);
+            await _crudDb.Customers.AddAsync(_mapper.Map<Customer>(Customer));
             await _crudDb.SaveChangesAsync();
             return true;
         }
         #endregion
 
         #region Get Customer by Id
-        public async Task<Customer> GetCustomerAsync(int Id)
+        public async Task<CustomerModel> GetCustomerAsync(int Id)
         {
             Customer Customer = await _crudDb.Customers.FirstOrDefaultAsync(c => c.Id.Equals(Id));
-            return Customer;
+            return _mapper.Map<CustomerModel>(Customer);
         }
         #endregion
 
         #region Update Customer
-        public async Task<bool> UpdateCustomerAsync(Customer Customer)
+        public async Task<bool> UpdateCustomerAsync(CustomerModel Customer)
         {
-            _crudDb.Customers.Update(Customer);
+            _crudDb.Customers.Update(_mapper.Map<Customer>(Customer));
             await _crudDb.SaveChangesAsync();
             return true;
         }
         #endregion
 
         #region DeleteCustomer
-        public async Task<bool> DeleteCustomerAsync(Customer Customer)
+        public async Task<bool> DeleteCustomerAsync(CustomerModel Customer)
         {
-            _crudDb.Remove(Customer);
+            _crudDb.Remove(_mapper.Map<Customer>(Customer));
             await _crudDb.SaveChangesAsync();
             return true;
         }

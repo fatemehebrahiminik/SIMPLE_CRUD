@@ -13,6 +13,8 @@ namespace Servises.Tools
         { 
             CreateMap<Customer, CustomerModel>();
             CreateMap<CustomerModel, Customer>();
+            CreateMap<Nation, NationModel>();
+            CreateMap<NationModel, Nation>();
         }
     }
 }
