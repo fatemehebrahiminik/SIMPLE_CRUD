@@ -61,11 +61,17 @@ namespace Servises.Services
         #endregion
 
         #region DeleteCustomer
-        public async Task<bool> DeleteCustomerAsync(CustomerModel Customer)
+        public async Task<bool> DeleteCustomerAsync(int id)
         {
-            _crudDb.Remove(_mapper.Map<Customer>(Customer));
-            await _crudDb.SaveChangesAsync();
-            return true;
+           var customer = _crudDb.Customers.Find(id);
+            if (customer != null)
+            {
+                _crudDb.Customers.Remove(customer);
+                await _crudDb.SaveChangesAsync();
+                return true;
+            }
+            else return false;
+          
         }
         /// <summary>
         /// false mean not exist email

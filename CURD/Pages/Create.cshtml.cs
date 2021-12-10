@@ -62,7 +62,7 @@ namespace CURD.Pages
                 ViewData["NationId"] = new SelectList(nations, "Id", "NationTypeDesc");
                 return Page();
             }
-            if (Customer.Id.HasValue)
+            if (!Customer.Id.HasValue)
                await _customerService.InsertCustomerAsync(Customer);
             else await _customerService.UpdateCustomerAsync(Customer);
             return RedirectToPage("./Index");

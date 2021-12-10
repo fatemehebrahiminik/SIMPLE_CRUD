@@ -27,5 +27,10 @@ namespace CURD.Pages
         {
             Customer = await _customerService.GetAllCustomersAsync();
         }
+        public async Task<IActionResult> OnGetDelete(int id)
+        {
+            await _customerService.DeleteCustomerAsync(id); 
+            return RedirectToPage("./Index");
+        }
     }
 }
